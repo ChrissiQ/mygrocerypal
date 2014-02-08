@@ -1,5 +1,5 @@
 module.exports = {
-  db: 'localhost',
+  db: 'localhost/mygrocerypal',
 
   sessionSecret: "Your Session Secret goes here",
 
@@ -44,7 +44,7 @@ module.exports = {
     callbackURL: '/auth/google/callback',
     passReqToCallback: true
   },
-  
+
   steam: {
     apiKey: 'Your Steam API Key'
   },

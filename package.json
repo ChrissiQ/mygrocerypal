@@ -31,5 +31,8 @@
     "paypal-rest-sdk": "~0.6.4",
     "connect-mongo": "~0.4.0",
     "twilio": "~1.5.0"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
   }
 }
