@@ -4,6 +4,12 @@ block scripts
   script(src="//www.google.com/jsapi")
   script(src="/js/lib/chartkick.js")
   script(src="/js/deals.js")
+  if user.items.length > 0
+    script.
+      var items = !{JSON.stringify(user.items)}
+  else
+    script.
+      var items = []
 
 block content
   div.row

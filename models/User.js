@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
+var Item = require('../models/Item');
+var Grocer = require('../models/Grocer');
 
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
@@ -18,7 +20,10 @@ var userSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
-  }
+  },
+
+  items: Array
+
 });
 
 /**
@@ -58,6 +63,35 @@ userSchema.methods.gravatar = function(size, defaults) {
   if (!defaults) defaults = 'retro';
   var md5 = crypto.createHash('md5').update(this.email);
   return 'https://gravatar.com/avatar/' + md5.digest('hex').toString() + '?s=' + size + '&d=' + defaults;
+};
+
+userSchema.methods.addItem = function(data, cb) {
+  var user = this;
+
+  var item = new Item({
+    name: data.name
+  });
+
+  user.items.push(item);
+  user.save(function(err) {
+    if (err) return next(err);
+    cb();
+  });
+};
+
+
+userSchema.methods.addGrocer = function(data, cb) {
+  var user = this;
+
+  var grocer = new Grocer({
+    name: data.name
+  });
+
+  user.grocers.push(grocer);
+  user.save(function(err) {
+    if (err) return next(err);
+    cb();
+  });
 };
 
 module.exports = mongoose.model('User', userSchema);

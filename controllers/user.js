@@ -206,3 +206,40 @@ exports.getOauthUnlink = function(req, res, next) {
     });
   });
 };
+
+/**
+ * POST /item
+ * Add item to user
+ */
+
+exports.addItem = function(req, res, next) {
+
+  User.findById(req.user.id, function(err, user) {
+    if (err) return next(err);
+
+    user.addItem(req.body.item, function(){
+      res.send(req.body.item || false)
+    });
+
+  });
+
+};
+
+
+/**
+ * POST /grocer
+ * Add grocer to user
+ */
+
+exports.addItem = function(req, res, next) {
+
+  User.findById(req.user.id, function(err, user) {
+    if (err) return next(err);
+
+    user.addItem(req.body.item, function(){
+      res.send(req.body.item || false)
+    });
+
+  });
+
+};

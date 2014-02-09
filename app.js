@@ -102,6 +102,9 @@ app.use(express.errorHandler());
 
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
+
+app.post('/item', userController.addItem);
+
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/signup', userController.getSignup);

@@ -2,6 +2,12 @@ extends layout
 
 block scripts
   script(src="/js/profile.js")
+  if user.items.length > 0
+    script.
+      var items = !{JSON.stringify(user.items)}
+  else
+    script.
+      var items = []
 
 if user
   .alert.alert-success.animated.flipInX
@@ -11,47 +17,52 @@ if user
 
 block content
 
-  form(role="form")
-    .row
-      .col-md-6
-        .panel.panel-default
+  input(type='hidden' name='_csrf' id='csrf' value=token)
 
-          .panel-heading: h3.panel-title My Watched Items
-            a(href="#")#add-watched-item.right
-              span.glyphicon.glyphicon-plus.bright.middle
-          .panel-body
-            div(data-ng-controller="ProductsController")
-              ul.no-list-style
-                li(data-ng-repeat="item in myitems")
-                  input(type="checkbox" checked="{{ isMyProduct(item.id) }}")
-                  | {{ " " + item.name }}
+  .row
+    .col-md-6
+      .panel.panel-default
 
-      .col-md-6
-        .panel.panel-default
-
-
-          .panel-heading: h2.panel-title My Location
-          .panel-body
-            input.form-control(type="text" id="location" placeholder="Calgary, AB")
-
-        .panel.panel-default
+        .panel-heading: h3.panel-title My Watched Items
+        .panel-body
+          div(data-ng-controller="ProductsController")
+            ul.no-list-style
+              li
+                form#new-item(role="form")
+                  div(style="float: left;")
+                    input.form-control(type="text")
+                  div(style="float: left;")
+                    button.btn.btn-default add
+                  .clearfix
+              li(data-ng-repeat="item in items")
+                input(type="checkbox" value="{{ item._id }}")
+                | {{ " " + item.name }}
 
 
-          .panel-heading: h2.panel-title My Grocery Stores
-            span.glyphicon.glyphicon-plus.bright.right.middle
-          .panel-body
-            .checkbox
-              input(type="checkbox" value="store_safeway" id="store_safeway")
-              label(for="store_safeway") Safeway
-            .checkbox
-              input(type="checkbox" value="store_coop" id="store_coop")
-              label(for="store_coop") Calgary Co-Op
-            .checkbox
-              input(type="checkbox" value="store_superstore" id="store_superstore")
-              label(for="store_superstore") Superstore
+    .col-md-6
+      .panel.panel-default
 
-            div
-              a(href="#") Remove Checked
+        .panel-heading: h2.panel-title My Location
+        .panel-body
+          input.form-control(type="text" id="location" placeholder="Calgary, AB")
+
+      .panel.panel-default
+
+        .panel-heading: h2.panel-title My Grocery Stores
+          span.glyphicon.glyphicon-plus.bright.right.middle
+        .panel-body
+          .checkbox
+            input(type="checkbox" value="store_safeway" id="store_safeway")
+            label(for="store_safeway") Safeway
+          .checkbox
+            input(type="checkbox" value="store_coop" id="store_coop")
+            label(for="store_coop") Calgary Co-Op
+          .checkbox
+            input(type="checkbox" value="store_superstore" id="store_superstore")
+            label(for="store_superstore") Superstore
+
+          div
+            a(href="#") Remove Checked
 
   .modal#list-add
     .modal-dialog
