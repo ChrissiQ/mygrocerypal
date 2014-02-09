@@ -67,23 +67,3 @@ block content
               li(data-ng-repeat="grocer in mygrocers")
                 input(type="checkbox" value="{{ grocer._id }}")
                 | {{ " " + grocer.name }}
-
-  .modal#list-add
-    .modal-dialog
-      .modal-content
-        .modal-header
-          button.close(type="button" data-dismiss="modal" aria-hidden="true")&times;
-          h4.modal-title Modal title
-        .modal-body
-          label(for="product_search") Start typing the name of something you buy regularly.
-          .form-group
-            input(type="search" id="product_search" data-ng-model="filter.product_search.name")
-
-            div(data-ng-controller="ProductsController")
-              ul.no-list-style
-                li(data-ng-repeat="product in products | filter:filter.product_search")
-                  button.btn.btn-default:  span.glyphicon.glyphicon-plus.middle
-                  span(style="vertical-align: middle") {{ " " + product.name }}
-
-        .modal-footer
-          button.btn.btn-default(type="button" data-dismiss="modal") Close

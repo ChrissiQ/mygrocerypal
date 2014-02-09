@@ -13,6 +13,19 @@ app.controller("DealsController", function ($scope) {
 
 $(document).ready(function(){
     new Chartkick.PieChart("deals-breakdown", [["Superstore", 3],["Safeway", 1]]);
+
+    $('#check-all-deals').on('change', function(data){
+        console.log($('#check-all-deals').is(':checked'))
+        if ($('#check-all-deals').is(':checked')) {
+            $('.check-deal').attr('checked', true)
+        } else {
+            $('.check-deal').attr('checked', false)
+        }
+    })
+
+    $('#email-me').on('click', function(){
+        $('#email-sent').modal('show')
+    })
 })
 
 console.log(app)

@@ -29,7 +29,7 @@ block content
         table.table.table-striped(data-ng-controller="DealsController")
           thead
             tr
-              td
+              td(style="width: 1rem;"): input#check-all-deals(type="checkbox")
               td Item
               td Location
               td Sale Price
@@ -37,12 +37,25 @@ block content
               td Deal Expires
           tbody
             tr(data-ng-repeat="deal in deals")
-              td(style="width: 1rem;"): input(type="checkbox")
+              td(style="width: 1rem;"): input.check-deal(type="checkbox")
               td {{ deal.name }}
               td {{ deal.location }}
               td {{ deal.sale }}
               td {{ deal.price }}
               td {{ deal.end }}
+        button.btn.btn-defaul.btn-primary#email-me(style="float: right; font-size: 2rem; font-weight: bold;") Email myDeals
+
+    .modal#email-sent
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type="button" data-dismiss="modal" aria-hidden="true")&times;
+            h4.modal-title Sent Email
+          .modal-body
+            div A summary of your deals has been sent to !{user.email}.
+          .modal-footer
+            button.btn.btn-primary(type="button" data-dismiss="modal" style="font-weight: bold") OK
+
 
   else
     h1 Register or log in to start saving money!
