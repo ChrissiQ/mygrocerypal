@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default.navbar-fixed-top.navbar-inverse#nav
   .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -8,13 +8,13 @@
         span.icon-bar
       a.navbar-brand(href='/' style="position: relative; top: -1rem; left: -1rem;")
         img(src="/img/logo.png" style=" width: 8rem")
-        span= " MyFoodFlyer"
+        span(style="position: relative; top: 0.25rem; left: 0.25rem;")= " MyFoodFlyer"
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=title=='My Grocery List'?'active':undefined)
-          a(href='/profile') My Grocery List
         li(class=title=='Deals This Week'?'active':undefined)
           a(href='/deals') Deals This Week
+        li(class=title=='My Grocery List'?'active':undefined)
+          a(href='/profile') My Grocery List
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=title=='Login'?'active':undefined)
