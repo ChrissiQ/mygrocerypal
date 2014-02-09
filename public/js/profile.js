@@ -17,6 +17,8 @@ app.controller("ProductsController", function ($scope) {
                 success: function (data) {
                     $scope.myitems.push(data)
                     $scope.$apply()
+                    $('#additem').val('')
+                    $('#additem').focus()
                 }
             })
         }
@@ -43,6 +45,8 @@ app.controller("ProductsController", function ($scope) {
                 success: function (data) {
                     $scope.mygrocers.push(data)
                     $scope.$apply()
+                    $('#addgrocer').val('')
+                    $('#addgrocer').focus()
                 }
             })
         }
