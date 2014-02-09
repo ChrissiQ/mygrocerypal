@@ -8,7 +8,11 @@ app.controller("ProductsController", function ($scope) {
         { id: 2, name: "No-Name Ketchup", brand: "No-Name" },
         { id: 3, name: "Safeway Ketchup", brand: "Safeway" }
     ]
-    $scope.myproducts = [2,3]
+    $scope.myitems = [
+        { id: 1, name: "chicken" },
+        { id: 2, name: "Heinz Beans" },
+        { id: 3, name: "broccoli" }
+    ]
     $scope.isMyProduct = function(product){
         return
     }
@@ -19,6 +23,12 @@ app.controller("ProductsController", function ($scope) {
         { id: 4, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
         { id: 5, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
     ]
+})
+
+$(document).ready(function(){
+    $('#add-watched-item').click(function(){
+        $('#list-add').modal()
+    })
 })
 
 console.log(app)
