@@ -2,12 +2,18 @@ extends layout
 
 block scripts
   script(src="/js/profile.js")
-  if user.items.length > 0
+  if user && user.items && user.items.length > 0
     script.
       var items = !{JSON.stringify(user.items)}
   else
     script.
       var items = []
+  if user && user.grocers && user.grocers.length > 0
+    script.
+      var grocers = !{JSON.stringify(user.grocers)}
+  else
+    script.
+      var grocers = []
 
 if user
   .alert.alert-success.animated.flipInX
@@ -50,18 +56,17 @@ block content
 
           .panel-heading: h2.panel-title My Grocery Stores
           .panel-body
-            .checkbox
-              input(type="checkbox" value="store_safeway" id="store_safeway")
-              label(for="store_safeway") Safeway
-            .checkbox
-              input(type="checkbox" value="store_coop" id="store_coop")
-              label(for="store_coop") Calgary Co-Op
-            .checkbox
-              input(type="checkbox" value="store_superstore" id="store_superstore")
-              label(for="store_superstore") Superstore
-
-            div
-              a(href="#") Remove Checked
+            ul.no-list-style
+              li
+                form#new-grocer(role="form" data-ng-submit="submitNewGrocer()")
+                  div(style="float: left;")
+                    input.form-control(type="text" id="addgrocer")
+                  div(style="float: left;")
+                    button.btn.btn-default add
+                  .clearfix
+              li(data-ng-repeat="grocer in mygrocers")
+                input(type="checkbox" value="{{ grocer._id }}")
+                | {{ " " + grocer.name }}
 
   .modal#list-add
     .modal-dialog

@@ -1,12 +1,6 @@
 var app = angular.module('profile', [])
 
 app.controller("ProductsController", function ($scope) {
-    $scope.products = [
-        { id: 1, name: "PC Organic Chicken", brand: "PC" },
-        { id: 2, name: "No-Name Ketchup", brand: "No-Name" },
-        { id: 3, name: "Safeway Ketchup", brand: "Safeway" }
-    ]
-
 
     $scope.myitems = [];
     $scope.submitNewItem = function(){
@@ -36,7 +30,7 @@ app.controller("ProductsController", function ($scope) {
 
     $scope.mygrocers = [];
     $scope.submitNewGrocer = function(){
-        if ($('#additem').val()){
+        if ($('#addgrocer').val()){
             $.ajax('/grocer', {
                 method: 'POST',
                 type: 'POST',
@@ -44,25 +38,18 @@ app.controller("ProductsController", function ($scope) {
                     jqXHR.setRequestHeader('X-CSRF-Token', $('#csrf').val())
                 },
                 data: {
-                    item: {name: $('#addgrocer').val()}
+                    grocer: {name: $('#addgrocer').val()}
                 },
                 success: function (data) {
-                    $scope.myitems.push(data)
+                    $scope.mygrocers.push(data)
                     $scope.$apply()
                 }
             })
         }
     }
-    $scope.isMyProduct = function(product){
-        return
-    }
-    $scope.deals = [
-        { id: 1, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
-        { id: 2, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
-        { id: 3, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
-        { id: 4, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
-        { id: 5, name: "Orange", location: "Superstore", sale: "$2.99/lb", price: "$3.49/lb", end: "Date"},
-    ]
+    $.each(grocers, function(num, grocer){
+        $scope.mygrocers.push(grocer)
+    })
 })
 
 $(document).ready(function(){

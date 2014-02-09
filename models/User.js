@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     picture: { type: String, default: '' }
   },
 
-  items: Array
+  items: Array,
+  grocers: Array
 
 });
 

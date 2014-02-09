@@ -4,12 +4,19 @@ block scripts
   script(src="//www.google.com/jsapi")
   script(src="/js/lib/chartkick.js")
   script(src="/js/deals.js")
-  if user && user.items.length > 0
+  if user && user.items && user.items.length > 0
     script.
       var items = !{JSON.stringify(user.items)}
   else
     script.
       var items = []
+
+  if user && user.grocers && user.grocers.length > 0
+    script.
+      var grocers = !{JSON.stringify(user.grocers)}
+  else
+    script.
+      var grocers = []
 
 block content
   if user
@@ -18,7 +25,7 @@ block content
         h2 Deals Breakdown
         div#deals-breakdown
       div.col-md-8
-        h2 My Deals This Week
+        h2 myDeals This Week
         table.table.table-striped(data-ng-controller="DealsController")
           thead
             tr

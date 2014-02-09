@@ -236,8 +236,8 @@ exports.addGrocer = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
 
-    user.addItem(req.body.item, function(){
-      res.send(req.body.item || false)
+    user.addGrocer(req.body.grocer, function(){
+      res.send(user.grocers[user.grocers.length-1])
     });
 
   });
