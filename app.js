@@ -20,6 +20,13 @@ var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 
 /**
+ * Custom controllers.
+ */
+
+var profileController = require('./controllers/profile');
+var dealsController = require('./controllers/deals');
+
+/**
  * API keys + Passport configuration.
  */
 
@@ -148,6 +155,15 @@ app.get('/auth/tumblr', passport.authorize('tumblr'));
 app.get('/auth/tumblr/callback', passport.authorize('tumblr', { failureRedirect: '/api' }), function(req, res) {
   res.redirect('/api/tumblr');
 });
+
+
+/**
+ * Custom routes
+ */
+
+app.get('/profile', profileController.index);
+app.get('/deals', dealsController.index);
+
 
 /**
  * Start Express server.

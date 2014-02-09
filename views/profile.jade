@@ -1,0 +1,75 @@
+extends layout
+
+block scripts
+  script(src="/js/profile.js")
+
+if user
+  .alert.alert-success.animated.flipInX
+    i.fa.fa-check
+    strong Success!
+    |  You are logged in.
+
+block content
+
+  form(role="form")
+    .row
+      .col-md-6
+        .panel.panel-default
+
+          .panel-heading: h3.panel-title My Grocery List
+            span.glyphicon.glyphicon-plus.bright.right.middle.bigger
+          .panel-body
+            div(data-ng-controller="ProductsController")
+              label(for="product_search") Start typing the name of something you buy regularly.
+
+              .form-group
+                input(type="search" id="product_search" data-ng-model="filter.product_search.name")
+
+              ul.no-list-style
+                li(data-ng-repeat="product in products | filter:filter.product_search")
+                  input(type="checkbox" checked="{{ isMyProduct(product.id) }}")
+                  | {{ " " + product.name }}
+
+            div
+              label My Tracked Product List
+              ul
+                li(data-ng-repeat="product in myproducts")
+
+      .col-md-6
+        .panel.panel-default
+
+
+          .panel-heading: h2.panel-title My Location
+          .panel-body
+            input.form-control(type="text" id="location" placeholder="Calgary, AB")
+
+        .panel.panel-default
+
+
+          .panel-heading: h2.panel-title My Grocery Stores
+            span.glyphicon.glyphicon-plus.bright.right.middle.bigger
+          .panel-body
+            .checkbox
+              input(type="checkbox" value="store_safeway" id="store_safeway")
+              label(for="store_safeway") Safeway
+            .checkbox
+              input(type="checkbox" value="store_coop" id="store_coop")
+              label(for="store_coop") Calgary Co-Op
+            .checkbox
+              input(type="checkbox" value="store_superstore" id="store_superstore")
+              label(for="store_superstore") Superstore
+
+            div
+              a(href="#") Remove Checked
+
+  .modal.fade#list-add
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type="button" data-dismiss="modal" aria-hidden="true")&times;
+          h4.modal-title Modal title
+        .modal-body
+          p One fine body&hellip;
+        .modal-footer
+          button.btn.btn-default(type="button" data-dismiss="modal") Close
+          button.btn.btn-primary(type="button") Save changes
