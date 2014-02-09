@@ -4,7 +4,7 @@ block scripts
   script(src="//www.google.com/jsapi")
   script(src="/js/lib/chartkick.js")
   script(src="/js/deals.js")
-  if user.items.length > 0
+  if user && user.items.length > 0
     script.
       var items = !{JSON.stringify(user.items)}
   else
@@ -12,26 +12,30 @@ block scripts
       var items = []
 
 block content
-  div.row
-    div.col-md-4
-      h2 Deals Breakdown
-      div#deals-breakdown
-    div.col-md-8
-      h2 My Deals This Week
-      table.table.table-striped(data-ng-controller="DealsController")
-        thead
-          tr
-            td
-            td Item
-            td Location
-            td Sale Price
-            td Regular Price
-            td Deal Expires
-        tbody
-          tr(data-ng-repeat="deal in deals")
-            td(style="width: 1rem;"): input(type="checkbox")
-            td {{ deal.name }}
-            td {{ deal.location }}
-            td {{ deal.sale }}
-            td {{ deal.price }}
-            td {{ deal.end }}
+  if user
+    div.row
+      div.col-md-4
+        h2 Deals Breakdown
+        div#deals-breakdown
+      div.col-md-8
+        h2 My Deals This Week
+        table.table.table-striped(data-ng-controller="DealsController")
+          thead
+            tr
+              td
+              td Item
+              td Location
+              td Sale Price
+              td Regular Price
+              td Deal Expires
+          tbody
+            tr(data-ng-repeat="deal in deals")
+              td(style="width: 1rem;"): input(type="checkbox")
+              td {{ deal.name }}
+              td {{ deal.location }}
+              td {{ deal.sale }}
+              td {{ deal.price }}
+              td {{ deal.end }}
+
+  else
+    h1 Register or log in to start saving money!

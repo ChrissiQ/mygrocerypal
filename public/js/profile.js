@@ -6,7 +6,53 @@ app.controller("ProductsController", function ($scope) {
         { id: 2, name: "No-Name Ketchup", brand: "No-Name" },
         { id: 3, name: "Safeway Ketchup", brand: "Safeway" }
     ]
-    $scope.items = items
+
+
+    $scope.myitems = [];
+    $scope.submitNewItem = function(){
+        if ($('#additem').val()){
+            $.ajax('/item', {
+                method: 'POST',
+                type: 'POST',
+                beforeSend: function(jqXHR, settings){
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('#csrf').val())
+                },
+                data: {
+                    item: {name: $('#additem').val()}
+                },
+                success: function (data) {
+                    $scope.myitems.push(data)
+                    $scope.$apply()
+                }
+            })
+        }
+    }
+    $.each(items, function(num, item){
+        $scope.myitems.push(item)
+    })
+
+
+
+
+    $scope.mygrocers = [];
+    $scope.submitNewGrocer = function(){
+        if ($('#additem').val()){
+            $.ajax('/grocer', {
+                method: 'POST',
+                type: 'POST',
+                beforeSend: function(jqXHR, settings){
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('#csrf').val())
+                },
+                data: {
+                    item: {name: $('#addgrocer').val()}
+                },
+                success: function (data) {
+                    $scope.myitems.push(data)
+                    $scope.$apply()
+                }
+            })
+        }
+    }
     $scope.isMyProduct = function(product){
         return
     }
@@ -22,22 +68,5 @@ app.controller("ProductsController", function ($scope) {
 $(document).ready(function(){
     $('#add-watched-item').click(function(){
         $('#list-add').modal()
-    })
-    $('#new-item').on('submit', function(){
-        console.log("Submitting new item.");
-        $.ajax('/item', {
-            method: 'POST',
-            type: 'POST',
-            beforeSend: function(jqXHR, settings){
-                jqXHR.setRequestHeader('X-CSRF-Token', $('#csrf').val())
-            },
-            data: {
-                item: {name: 'oranges'}
-            },
-            success: function (data) {
-                console.log(data)
-            }
-        })
-
     })
 })

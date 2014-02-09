@@ -218,7 +218,7 @@ exports.addItem = function(req, res, next) {
     if (err) return next(err);
 
     user.addItem(req.body.item, function(){
-      res.send(req.body.item || false)
+      res.send(user.items[user.items.length-1])
     });
 
   });
@@ -231,7 +231,7 @@ exports.addItem = function(req, res, next) {
  * Add grocer to user
  */
 
-exports.addItem = function(req, res, next) {
+exports.addGrocer = function(req, res, next) {
 
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
